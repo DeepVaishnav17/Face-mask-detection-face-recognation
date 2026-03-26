@@ -18,10 +18,10 @@ from typing import Optional, Tuple, Dict, Any
 # DeepFace lazy-loads its models on first call — no global init needed
 from deepface import DeepFace
 
-MODEL_NAME   = "Facenet"      # fallback because Facenet512 download URL is currently broken
+MODEL_NAME   = "VGG-Face"     # VGG-Face downloads perfectly. Facenet URL is currently globally broken.
 DETECTOR     = "opencv"       # fastest, most reliable detector
 DISTANCE     = "cosine"
-THRESHOLD    = 0.40           # cosine distance — default 0.40 for Facenet (0.30 was for Facenet512)
+THRESHOLD    = 0.40           # cosine distance — default 0.40 for VGG-Face
 
 
 def get_embedding(frame_bgr: np.ndarray) -> Optional[list]:
