@@ -171,7 +171,7 @@ import React, { useRef, useState, useCallback, useEffect } from "react";
 import Webcam from "react-webcam";
 import axios from "axios";
 
-const API = "http://localhost:8000";
+const API = "https://face-mask-detection-face-recognation.onrender.com";
 
 // Camera quality tips shown in real-time
 const TIPS = [
@@ -184,14 +184,14 @@ const TIPS = [
 
 export default function Register() {
   const cam = useRef(null);
-  const [captured, setCaptured]   = useState(null);
-  const [name, setName]           = useState("");
-  const [dept, setDept]           = useState("");
-  const [loading, setLoading]     = useState(false);
-  const [msg, setMsg]             = useState(null);     // {type, text}
-  const [persons, setPersons]     = useState([]);
-  const [camReady, setCamReady]   = useState(false);
-  const [tipIdx, setTipIdx]       = useState(0);
+  const [captured, setCaptured] = useState(null);
+  const [name, setName] = useState("");
+  const [dept, setDept] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [msg, setMsg] = useState(null);     // {type, text}
+  const [persons, setPersons] = useState([]);
+  const [camReady, setCamReady] = useState(false);
+  const [tipIdx, setTipIdx] = useState(0);
 
   // Cycle tips every 3s
   useEffect(() => {
@@ -200,7 +200,7 @@ export default function Register() {
   }, []);
 
   const fetchPersons = () =>
-    axios.get(`${API}/persons`).then(r => setPersons(r.data.persons || [])).catch(() => {});
+    axios.get(`${API}/persons`).then(r => setPersons(r.data.persons || [])).catch(() => { });
 
   useEffect(() => { fetchPersons(); }, []);
 
@@ -213,7 +213,7 @@ export default function Register() {
 
   const submit = async () => {
     if (!name.trim()) return setMsg({ type: "red", text: "Please enter a name." });
-    if (!captured)    return setMsg({ type: "red", text: "Please capture a photo first." });
+    if (!captured) return setMsg({ type: "red", text: "Please capture a photo first." });
     setLoading(true); setMsg(null);
     try {
       const fd = new FormData();
@@ -235,7 +235,7 @@ export default function Register() {
 
   const deletePerson = async (id, pname) => {
     if (!window.confirm(`Remove "${pname}"?`)) return;
-    await axios.delete(`${API}/persons/${id}`).catch(() => {});
+    await axios.delete(`${API}/persons/${id}`).catch(() => { });
     fetchPersons();
   };
 
